@@ -11,6 +11,14 @@ import time
 
 from email.message import EmailMessage
 import datetime
+import os
+chrome_options = webdriver.ChromeOptions()
+chrome_options.binary_location = os.environ.get("GOOGLE_CHROME_BIN")
+
+chrome_options.add_argument("--headless")
+chrome_options.add_argument("--disable-dev-shm-usage")
+chrome_options.add_argument("--no-sandbox")
+driver=webdriver.Chrome(executable_path=os.environ.get("CHROMEDRIVER_PATH"), chrome_options=chrome_options)
 
 
 app = Flask(__name__)
@@ -49,7 +57,14 @@ def get_contact():
 
 @app.route("/automate")
 def webscrap():
-    chrome_web_driver_path = "C:\Development\chromedriver.exe"
+    chrome_options = webdriver.ChromeOptions()
+    chrome_options.binary_location = os.environ.get("GOOGLE_CHROME_BIN")
+
+    chrome_options.add_argument("--headless")
+    chrome_options.add_argument("--disable-dev-shm-usage")
+    chrome_options.add_argument("--no-sandbox")
+    driver = webdriver.Chrome(executable_path=os.environ.get("CHROMEDRIVER_PATH"), chrome_options=chrome_options)
+
 
     GOOGLE_FORM_LINK = "https://forms.gle/u4VijuqdJdbtYjVN9"
 
@@ -82,7 +97,7 @@ def webscrap():
     print(all_link)
     print(all_address)
 
-    driver = webdriver.Chrome(chrome_web_driver_path)
+
     driver.get(GOOGLE_FORM_LINK)
     time.sleep(5)
 
@@ -107,7 +122,13 @@ def webscrap():
 
 @app.route("/automate2")
 def instabot():
-    chrome_web_driver_path = "C:\Development\chromedriver.exe"
+    chrome_options = webdriver.ChromeOptions()
+    chrome_options.binary_location = os.environ.get("GOOGLE_CHROME_BIN")
+
+    chrome_options.add_argument("--headless")
+    chrome_options.add_argument("--disable-dev-shm-usage")
+    chrome_options.add_argument("--no-sandbox")
+    driver_path = webdriver.Chrome(executable_path=os.environ.get("CHROMEDRIVER_PATH"), chrome_options=chrome_options)
     SIMILAR_ACCOUNT = "burakozcivit"
     USERNAME = "9889602245"
     PASSWORD = "aliraqqu"
@@ -115,7 +136,7 @@ def instabot():
     class InstaFollower:
 
         def __init__(self, path):
-            self.driver = webdriver.Chrome(executable_path=path)
+            self.driver = path
 
         def login(self):
             self.driver.get("https://www.instagram.com/accounts/login/")
@@ -158,7 +179,7 @@ def instabot():
                     cancel_button = self.driver.find_element_by_xpath('/html/body/div[5]/div/div/div/div[3]/button[2]')
                     cancel_button.click()
 
-    bot = InstaFollower(chrome_web_driver_path)
+    bot = InstaFollower(driver_path)
     bot.login()
     bot.find_followers()
     bot.follow()
