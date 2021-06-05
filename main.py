@@ -8,10 +8,10 @@ from selenium.common.exceptions import NoSuchElementException
 from selenium.common.exceptions import ElementClickInterceptedException
 from bs4 import BeautifulSoup
 import time
-
 from email.message import EmailMessage
 import datetime
 import os
+from selenium.webdriver.chrome.options import Options
 
 
 app = Flask(__name__)
@@ -50,7 +50,7 @@ def get_contact():
 
 @app.route("/automate")
 def webscrap():
-    chrome_options = webdriver.ChromeOptions()
+    chrome_options = Options()
     chrome_options.binary_location = os.environ.get("GOOGLE_CHROME_BIN")
 
     chrome_options.add_argument("--disable-dev-shm-usage")
@@ -114,7 +114,7 @@ def webscrap():
 
 @app.route("/automate2")
 def instabot():
-    chrome_options = webdriver.ChromeOptions()
+    chrome_options = Options()
     chrome_options.binary_location = os.environ.get("GOOGLE_CHROME_BIN")
 
 
