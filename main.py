@@ -137,7 +137,7 @@ def instabot():
 
         def login(self):
             self.driver.get("https://www.instagram.com/accounts/login/")
-            time.sleep(5)
+            time.sleep(8)
 
             facebook = self.driver.find_element_by_css_selector(".KPnG0")
             facebook.click()
