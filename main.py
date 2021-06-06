@@ -19,10 +19,9 @@ from selenium.webdriver.support import expected_conditions as EC
 from webdriver_manager.chrome import ChromeDriverManager
 
 
-options = Options()
-options = webdriver.ChromeOptions()
-options.binary_location = os.environ.get("GOOGLE_CHROME_BIN")
+chrome_options = Options()
 
+chrome_options.add_argument('--disable-dev-shm-usage')
 
 
 
@@ -94,7 +93,7 @@ def webscrap():
     print(all_link)
     print(all_address)
 
-    driver = webdriver.Chrome(executable_path = os.environ.get("CHROMEDRIVER_PATH"), options= options)
+    driver = webdriver.Chrome('/home/PycharmProjects/chromedriver',chrome_options=chrome_options)
     driver.get(GOOGLE_FORM_LINK)
     time.sleep(5)
 
@@ -120,7 +119,7 @@ def webscrap():
 @app.route("/automate2")
 def instabot():
 
-    driver_path = webdriver.Chrome(executable_path=os.environ.get("CHROMEDRIVER_PATH"), options= options)
+    driver_path = webdriver.Chrome('/home/PycharmProjects/chromedriver',chrome_options=chrome_options)
 
     SIMILAR_ACCOUNT = "burakozcivit"
     USERNAME = "9889602245"
