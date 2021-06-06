@@ -97,7 +97,7 @@ def webscrap():
     print(all_link)
     print(all_address)
 
-    driver = webdriver.Chrome('/home/PycharmProjects/chromedriver',chrome_options=chrome_options)
+    driver = webdriver.Chrome(executable_path=os.environ.get("CHROMEDRIVER_PATH"),chrome_options=chrome_options)
     driver.get(GOOGLE_FORM_LINK)
     time.sleep(5)
 
@@ -123,7 +123,7 @@ def webscrap():
 @app.route("/automate2")
 def instabot():
 
-    driver_path = webdriver.Chrome('/home/PycharmProjects/chromedriver',chrome_options=chrome_options)
+    driver_path =webdriver.Chrome(executable_path=os.environ.get("CHROMEDRIVER_PATH"),chrome_options=chrome_options)
 
     SIMILAR_ACCOUNT = "burakozcivit"
     USERNAME = "9889602245"
