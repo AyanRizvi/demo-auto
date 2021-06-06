@@ -18,6 +18,12 @@ from selenium.webdriver.support import expected_conditions as EC
 
 from webdriver_manager.chrome import ChromeDriverManager
 
+options = webdriver.ChromeOptions()
+options = webdriver.ChromeOptions()
+options.binary_location = os.environ.get("GOOGLE_CHROME_BIN")
+
+
+
 
 app = Flask(__name__)
 
@@ -87,7 +93,7 @@ def webscrap():
     print(all_link)
     print(all_address)
 
-    driver = webdriver.Chrome(ChromeDriverManager().install())
+    driver = webdriver.Chrome(executable_path = os.environ.get("CHROMEDRIVER_PATH"), options= options)
     driver.get(GOOGLE_FORM_LINK)
     time.sleep(5)
 
@@ -112,6 +118,8 @@ def webscrap():
 
 @app.route("/automate2")
 def instabot():
+
+    driver_path = webdriver.Chrome(executable_path=os.environ.get("CHROMEDRIVER_PATH"), options= options)
 
     SIMILAR_ACCOUNT = "burakozcivit"
     USERNAME = "9889602245"
@@ -172,73 +180,6 @@ def instabot():
 
     return render_template("index.html")
 
-
-@app.route("/automate3")
-def auto_email():
-    listner = sr.Recognizer()
-    engine = pyttsx3.init()
-
-    def talk(text):
-        engine.say(text)
-        engine.runAndWait()
-
-    def get_email():
-        try:
-            with sr.Microphone() as source:
-                print('Listening...')
-                listner.adjust_for_ambient_noise(source, duration=0.2)
-                voice = listner.listen(source, phrase_time_limit=5)
-                info = listner.recognize_google(voice)
-                print(info)
-                return info.lower()
-
-        except:
-            pass
-
-    def send_email(receiver, subject, message):
-        server = smtplib.SMTP('smtp.gmail.com', 587)
-        server.ehlo()
-        server.starttls()
-        server.ehlo()
-        server.login('ayanrizvi786786@gmail.com', 'ayanrizvi39')
-        email = EmailMessage()
-        email['From'] = 'ayanrizvi786786@gmail.com'
-        email['To'] = receiver
-        email['Subject'] = subject
-        email.set_content(message)
-        server.send_message(email)
-        talk('Hey handsome dude your email is send')
-        talk('Do you want to send more email')
-        send_more = get_email()
-        if send_more == "yes":
-            get_email_info()
-        elif send_more == "no":
-            talk("Bye bye have a good day")
-
-    email_list = {
-        'aman': 'basilcrouch10@gmail.com',
-        'brando': 'brandsonjohnson6@gamil.com'
-    }
-
-    def get_email_info():
-        talk('To whom you want to send email')
-
-        try:
-            name = get_email()
-            receiver = email_list[name]
-            print(receiver)
-            talk('What is the subject of your info')
-            subject = get_email()
-            talk('Tell me the content of your email')
-            message = get_email()
-            send_email(receiver, subject, message)
-
-        except:
-            pass
-
-    get_email_info()
-
-    return render_template("index.html")
 
 
 if __name__ == "__main__":
