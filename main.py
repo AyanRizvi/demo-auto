@@ -99,7 +99,7 @@ def webscrap():
 
     driver = webdriver.Chrome(executable_path=os.environ.get("CHROMEDRIVER_PATH"),chrome_options=chrome_options)
     driver.get(GOOGLE_FORM_LINK)
-    time.sleep(5)
+    time.sleep(2)
 
     for _ in range(8):
         input_address = driver.find_element_by_xpath(
@@ -138,9 +138,10 @@ def instabot():
 
         def login(self):
             self.driver.get("https://www.instagram.com/accounts/login/")
-            time.sleep(8)
+            time.sleep(5)
 
             facebook = self.driver.find_element_by_css_selector(".KPnG0")
+            time.sleep(5)
             facebook.click()
             password = self.driver.find_element_by_id("pass")
             username = self.driver.find_element_by_id("email")
